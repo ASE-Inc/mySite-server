@@ -1,0 +1,10 @@
+source :rubygems
+gem 'sinatra', '1.1.0'
+gem 'thin'
+gem 'unicorn'
+gem 'em-http-request'
+gem 'yajl-ruby'
+gem 'jekyll'
+gem 'html_press'
+gem 'github-markdown'
+gem 'github-markup'
