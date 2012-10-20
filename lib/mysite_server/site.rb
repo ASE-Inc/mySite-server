@@ -18,15 +18,18 @@ module MySite_Server
   class Site < Jekyll::Site
 
     STATUS = {
+      :initializing => "initializing"
       :ready => "ready",
       :generating => "generating",
       :updating => "updating"
     }
 
     attr_accessor :datasources, :pagemap
+    attr_reader :status
 
     def initialize(options)
       super(options)
+      @status = STATUS[:initializing]
       self.pagemap = Hash.new
 
       self.datasources = MySite_Server::DataSource.subclasses.select do |c|
@@ -47,10 +50,14 @@ module MySite_Server
     end
 
     def update
+      if(@status != STATUS[:initializing])
+        @status = updating
       getData do
+        @status = STATUS[:generating]
         self.generateSite
         self.generateMap
       end
+      @status = STATUS[:ready]
     end
 
     def getData
