@@ -16,9 +16,9 @@ module MySite_Server
       github_ORG = config["GitHub"]["org"] || "ASE-Inc"
       
       if github_USER
-        @user = MySite_Server::GitHub::User.new(github_USER)
+        @name = @user = MySite_Server::GitHub::User.new(github_USER)
       elsif github_ORG
-        @org = MySite_Server::GitHub::Org.new(github_ORG)
+        @name = @org = MySite_Server::GitHub::Org.new(github_ORG)
       end
     end
 
