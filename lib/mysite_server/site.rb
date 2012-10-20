@@ -18,7 +18,7 @@ module MySite_Server
   class Site < Jekyll::Site
 
     STATUS = {
-      :initializing => "initializing"
+      :initializing => "initializing",
       :ready => "ready",
       :generating => "generating",
       :updating => "updating"
