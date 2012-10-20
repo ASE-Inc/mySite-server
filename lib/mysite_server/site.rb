@@ -52,6 +52,7 @@ module MySite_Server
     def update
       if(@status != STATUS[:initializing])
         @status = updating
+      end
       getData do
         @status = STATUS[:generating]
         self.generateSite
