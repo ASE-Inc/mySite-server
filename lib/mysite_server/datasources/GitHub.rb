@@ -162,13 +162,13 @@ module MySite_Server
             req = cl.get
           end
           req.errback {
-            puts "Oh! error #{query[:url]}"
+            #puts "Oh! error #{query[:url]}"
             query[:callback].call(nil, nil, nil) if query[:callback]
             @ongoing_count-=1
             getNext
           }
           req.callback {
-            puts "Hurry! got #{query[:url]}"
+            #puts "Hurry! got #{query[:url]}"
             query[:callback].call(req.response_header.status, req.response_header, req.response) if query[:callback]
             @ongoing_count-=1
             getNext
@@ -191,7 +191,7 @@ module MySite_Server
       def callback
         @query_count-=1
         if @query_count != 0
-          puts @query_count
+          #puts @query_count
           return
         end
         if @callback_block then
