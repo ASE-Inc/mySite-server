@@ -18,7 +18,7 @@ module MySite_Server
   class Site < Jekyll::Site
 
     STATUS = {
-      :initializing => "initializing"
+      :initializing => "initializing",
       :ready => "ready",
       :generating => "generating",
       :updating => "updating"
@@ -52,6 +52,7 @@ module MySite_Server
     def update
       if(@status != STATUS[:initializing])
         @status = updating
+      end
       getData do
         @status = STATUS[:generating]
         self.generateSite
