@@ -95,7 +95,11 @@ module MySite_Server
     end
 
     def getResponse(url)
-      (@pagemap[url] || @pagemap["#{url}/"] || @pagemap[File.join(url, "index.html")]).output
+      if res = (@pagemap[url] || @pagemap["#{url}/"] || @pagemap[File.join(url, "index.html")]) then
+        res.output
+      else
+        nil
+      end
     end
 
   end
