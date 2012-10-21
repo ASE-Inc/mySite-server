@@ -1,0 +1,9 @@
+---
+layout: projects
+title:  mySite
+---
+
+<h1>Projects</h1>
+{% for project in page_github.repos %}
+<a href="{{ project.html_url }}"><h2>{{ project.name }}</h2></a>
+{% endfor %}

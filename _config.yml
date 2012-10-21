@@ -1,0 +1,18 @@
+
+exclude: ['.rvmrc', '.rbenv-version', 'README.md', 'changelog.md', 'bin', 'vendor', 'Gemfile', 'Gemfile.lock', 'Procfile', 'Rakefile', 'unicorn.rb', 'config.ru']
+auto: false
+pygments: true
+
+# Themes are encouraged to use these universal variables 
+# so be sure to set them if your theme uses them.
+#
+pre_title: Abhishek Munie
+tagline: 
+author :
+  name : Abhishek Munie
+  email : contact@abhishekmunie.com
+  github : abhishekmunie
+  twitter : abhishekmunie
+publisher : https://plus.google.com/101030613278833301135
+
+production_url : http://abhishekmunie.com
