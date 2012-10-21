@@ -20,9 +20,17 @@ module MySite_Server
 
     not_found do
       status 404
-      headers \
-        "Content-Type"=> "text/html"
-      $mySite.getResponse("/404.html") || send_file("404.html")
+      if res = $mySite.getResponse("/404.html")
+        headers \
+          "Content-Type"                => "text/html",
+          "Content-Encoding"            => "gzip",
+          "X-UA-Compatible"             => "IE=Edge,chrome=1",
+          "Access-Control-Allow-Origin" => "*"
+        etag res[:etag]
+        body res[:body]
+      else
+        send_file("404.html")
+      end
     end
     
     error 403 do
@@ -40,7 +48,8 @@ module MySite_Server
           "Content-Encoding"            => "gzip",
           "X-UA-Compatible"             => "IE=Edge,chrome=1",
           "Access-Control-Allow-Origin" => "*"
-        body res
+        etag res[:etag]
+        body res[:body]
       else
         send_file(url)
       end

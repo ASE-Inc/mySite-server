@@ -86,20 +86,24 @@ module MySite_Server
     def generateMap
       self.posts.each do |post|
         post.compressOutput
-        @pagemap[post.destination("")] = post
+        @pagemap[post.destination("")] = {
+          :page        => post,
+          :etag        => Digest::SHA1.hexdigest(post.output),
+          :body        => post.output
+        }
       end
       self.pages.each do |page|
         page.compressOutput
-        @pagemap[page.destination("")] = page
+        @pagemap[page.destination("")] = {
+          :page        => page,
+          :etag        => Digest::SHA1.hexdigest(page.output),
+          :body        => page.output
+        }
       end
     end
 
     def getResponse(url)
-      if res = (@pagemap[url] || @pagemap["#{url}/"] || @pagemap[File.join(url, "index.html")]) then
-        res.output
-      else
-        nil
-      end
+      (@pagemap[url] || @pagemap["#{url}/"] || @pagemap[File.join(url, "index.html")])
     end
 
   end

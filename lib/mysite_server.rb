@@ -12,6 +12,7 @@ def require_all_in(path)
   end
 end
 
+require 'digest/sha1'
 require 'eventmachine'
 require 'yajl'
 require 'html_press'
