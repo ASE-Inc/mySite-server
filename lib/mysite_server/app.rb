@@ -22,7 +22,7 @@ module MySite_Server
       status 404
       headers \
         "Content-Type"=> "text/html"
-      $mySite.getResponse("/404.html") || send_file "404.html"
+      $mySite.getResponse("/404.html") || send_file("404.html")
     end
     
     error 403 do
