@@ -22,7 +22,7 @@ module MySite_Server
       status 404
       headers \
         "Content-Type"=> "text/html"
-      send_file "404.html"
+      $mySite.getResponse("/404.html") || send_file "404.html"
     end
     
     error 403 do
@@ -34,8 +34,7 @@ module MySite_Server
     end
 
     get '/*' do |url|
-      url = "/#{url}"
-      if res = $mySite.getResponse(url)
+      if res = $mySite.getResponse("/#{url}")
         status 200
         headers \
           "Content-Encoding"            => "gzip",
