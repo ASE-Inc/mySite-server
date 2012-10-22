@@ -106,7 +106,7 @@ module MySite_Server
 
     def getResponse(url)
       url = File.join("/", url)
-      @pagemap[url] || @pagemap["#{url}/"] || @pagemap[File.join(url, "index.html")] ||  || @pagemap[File.join(url, "index.htm")]
+      @pagemap[url] || @pagemap["#{url}/"] || @pagemap[File.join(url, "index.html")] || @pagemap[File.join(url, "index.htm")]
     end
 
   end
