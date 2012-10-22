@@ -84,8 +84,8 @@ module MySite_Server
     end
 
     def genrateMapFor(page)
-      if page.data.mySite_redirect
-      elsif page.data.mySite_proxy
+      if page.data["mySite_redirect"]
+      elsif page.data["mySite_proxy"]
       else
         page.compressOutput
         @pagemap[page.destination("")] = {
