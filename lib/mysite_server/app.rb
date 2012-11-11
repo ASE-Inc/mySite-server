@@ -20,7 +20,7 @@ module MySite_Server
 
     not_found do
       status 404
-      if res = $mySite.getResponse("/404.html")
+      if res = $mySite.getResponse("404.html")
         headers \
           "Content-Type"                => "text/html",
           "Content-Encoding"            => "gzip",
@@ -42,7 +42,7 @@ module MySite_Server
     end
 
     get '/*' do |url|
-      if res = $mySite.getResponse("/#{url}")
+      if res = $mySite.getResponse(url)
         status 200
         headers \
           "Content-Encoding"            => "gzip",

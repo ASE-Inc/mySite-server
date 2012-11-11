@@ -83,27 +83,39 @@ module MySite_Server
       self.cleanup
     end
 
-    def generateMap
-      self.posts.each do |post|
-        post.compressOutput
-        @pagemap[post.destination("")] = {
-          :page        => post,
-          :etag        => Digest::SHA1.hexdigest(post.output),
-          :body        => post.output
-        }
-      end
-      self.pages.each do |page|
+    def genrateMapFor(page)
+      if page.data["mySite_redirect"]
+      elsif page.data["mySite_proxy"]
+      else
         page.compressOutput
         @pagemap[page.destination("")] = {
-          :page        => page,
           :etag        => Digest::SHA1.hexdigest(page.output),
           :body        => page.output
         }
       end
     end
 
+    def generateMap
+      tcount = self.posts.length + self.pages.length
+      self.posts.each do |post|
+        Thread.new do
+          genrateMapFor post
+          tcount-=1
+          yield if block_given? and tcount == 0
+        end
+      end
+      self.pages.each do |page|
+        Thread.new do
+          genrateMapFor page
+          tcount-=1
+          yield if block_given? and tcount == 0
+        end
+      end
+    end
+
     def getResponse(url)
-      (@pagemap[url] || @pagemap["#{url}/"] || @pagemap[File.join(url, "index.html")])
+      url = File.join("/", url)
+      @pagemap[url] || @pagemap["#{url}/"] || @pagemap[File.join(url, "index.html")] || @pagemap[File.join(url, "index.htm")]
     end
 
   end

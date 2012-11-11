@@ -1,4 +1,5 @@
 require 'eventmachine'
+require "sinatra"
 
 EventMachine.run {
   require 'em-http'
