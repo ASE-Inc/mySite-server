@@ -96,11 +96,20 @@ module MySite_Server
     end
 
     def generateMap
+      tcount = self.posts.length + self.pages.length
       self.posts.each do |post|
-        genrateMapFor post
+        Thread.new do
+          genrateMapFor post
+          tcount-=1
+          yield if block_given? and tcount == 0
+        end
       end
       self.pages.each do |page|
-        genrateMapFor page
+        Thread.new do
+          genrateMapFor page
+          tcount-=1
+          yield if block_given? and tcount == 0
+        end
       end
     end
 
