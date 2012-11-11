@@ -23,6 +23,7 @@ module MySite_Server
       if res = $mySite.getResponse("404.html")
         headers \
           "Content-Type"                => "text/html",
+          "Vary"                        => "Accept-Encoding",
           "Content-Encoding"            => "gzip",
           "X-UA-Compatible"             => "IE=Edge,chrome=1",
           "Access-Control-Allow-Origin" => "*"
@@ -45,6 +46,7 @@ module MySite_Server
       if res = $mySite.getResponse(url)
         status 200
         headers \
+          "Vary"                        => "Accept-Encoding",
           "Content-Encoding"            => "gzip",
           "X-UA-Compatible"             => "IE=Edge,chrome=1",
           "Access-Control-Allow-Origin" => "*"
