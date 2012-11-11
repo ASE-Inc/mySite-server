@@ -153,7 +153,7 @@ module MySite_Server
         if @ongoing_count <= @ConcurrentRequests and !@query_queue.empty?
           @ongoing_count+=1
           query = @query_queue.deq
-          puts "Requesting #{query[:url]}"
+          #puts "Requesting #{query[:url]}"
           cl = EventMachine::HttpRequest.new(query[:url])
           cl.use query[:middleware] if query[:middleware]
           if query[:query] then
@@ -162,7 +162,7 @@ module MySite_Server
             req = cl.get
           end
           req.errback {
-            #puts "Oh! error #{query[:url]}"
+            puts "Oh! error #{query[:url]}"
             query[:callback].call(nil, nil, nil) if query[:callback]
             @ongoing_count-=1
             getNext
