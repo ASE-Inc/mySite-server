@@ -10,7 +10,7 @@ module MySite_Server
   class App < Sinatra::Base
 
     configure :production, :development do
-      enable :logging
+      #enable :logging
       set :public_folder, File.dirname(__FILE__)
     end
 
