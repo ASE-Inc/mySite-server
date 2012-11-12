@@ -10,7 +10,7 @@ module MySite_Server
   class App < Sinatra::Base
 
     configure :production, :development do
-      enable :logging
+      #enable :logging
       set :public_folder, File.dirname(__FILE__)
     end
 
@@ -49,7 +49,11 @@ module MySite_Server
           "Vary"                        => "Accept-Encoding",
           "Content-Encoding"            => "gzip",
           "X-UA-Compatible"             => "IE=Edge,chrome=1",
-          "Access-Control-Allow-Origin" => "*"
+          "Access-Control-Allow-Origin" => "*",
+          "X-XSS-Protection"            => "1; mode=block",
+          "X-Frame-Options"             => "SAMEORIGIN",
+          "Transfer-Encoding"           => "chunked",
+          "Date"                        => Time.now.httpdate
         etag res[:etag]
         body res[:body]
       else
