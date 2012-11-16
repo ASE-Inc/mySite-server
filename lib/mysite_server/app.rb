@@ -1,6 +1,7 @@
 require 'sinatra/base'
 require 'eventmachine'
 require 'thin'
+require 'newrelic_rpm'
 
 options = {}
 options = MySite_Server.configuration(options)
