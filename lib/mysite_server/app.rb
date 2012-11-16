@@ -1,6 +1,7 @@
 require 'sinatra/base'
 require 'eventmachine'
 require 'thin'
+require 'newrelic_rpm'
 
 options = {}
 options = MySite_Server.configuration(options)
@@ -10,7 +11,7 @@ module MySite_Server
   class App < Sinatra::Base
 
     configure :production, :development do
-      #enable :logging
+      disable :logging
       set :public_folder, File.dirname(__FILE__)
     end
 
@@ -52,7 +53,6 @@ module MySite_Server
           "Access-Control-Allow-Origin" => "*",
           "X-XSS-Protection"            => "1; mode=block",
           "X-Frame-Options"             => "SAMEORIGIN",
-          "Transfer-Encoding"           => "chunked",
           "Date"                        => Time.now.httpdate
         etag res[:etag]
         body res[:body]
